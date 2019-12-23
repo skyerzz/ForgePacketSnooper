@@ -1,4 +1,4 @@
-##PacketSnooper for forge 1.8.9
+## PacketSnooper for forge 1.8.9
 
 This packetsnooper is created for academic purposes, to find what packets get sent by servers to the client.
 
