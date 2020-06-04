@@ -1,4 +1,4 @@
-package com.skyerzz.test;
+package com.skyerzz.packetsnooper;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelOutboundHandler;
