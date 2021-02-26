@@ -3,6 +3,7 @@ package com.skyerzz.packetsnooper;
 import com.skyerzz.packetsnooper.event.PacketEventManager;
 import com.skyerzz.packetsnooper.event.packet.*;
 import com.skyerzz.packetsnooper.util.SkyHelper;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.DataWatcher;
 import net.minecraft.entity.Entity;
@@ -26,70 +27,71 @@ public class PacketSnooper {
      * Set a boolean to TRUE if you want to see those packets show up in the log
      */
     //s0_
-    public static final boolean joinGame =          false;
-    public static final boolean spawnPosition =     false;
-    public static final boolean heldItemChange =    false;
-    public static final boolean chat =              false;
-    public static final boolean playerPosLook =     false;
-    public static final boolean timeUpdate =        false;
-    public static final boolean spawnMob =          false;
-    public static final boolean spawnObject =       false;
-    public static final boolean spawnPlayer =       false;
-    public static final boolean entityEquipment =   false;
-    public static final boolean animation =         false;
-    public static final boolean keepAlive =         false;
-    public static final boolean updateHealth =      false;
-    public static final boolean respawn =           false;
-    public static final boolean collectItem =       false;
-    public static final boolean useBed =            false;
+    public static final boolean joinGame = false;
+    public static final boolean spawnPosition = false;
+    public static final boolean heldItemChange = false;
+    public static final boolean chat = false;
+    public static final boolean playerPosLook = false;
+    public static final boolean timeUpdate = false;
+    public static final boolean spawnMob = false;
+    public static final boolean spawnObject = false;
+    public static final boolean spawnPlayer = false;
+    public static final boolean entityEquipment = false;
+    public static final boolean animation = false;
+    public static final boolean keepAlive = false;
+    public static final boolean updateHealth = false;
+    public static final boolean respawn = false;
+    public static final boolean collectItem = false;
+    public static final boolean useBed = false;
 
     //s1_ Entities
-    public static final boolean relativeMove =      false;
-    public static final boolean entityTeleport =    false;
-    public static final boolean entityVelocity =    false;
-    public static final boolean entityAttach =      false;
-    public static final boolean entityLook =        false;
-    public static final boolean setExperience =     false;
-    public static final boolean destroyEntities =   false;
-    public static final boolean entityMetaData =    false;
-    public static final boolean entityEffect =      false;
-    public static final boolean entityHeadlook =    false;
-    public static final boolean entityLookMove =    false;
-    public static final boolean spawnExperienceOrb= false;
+    public static final boolean relativeMove = false;
+    public static final boolean entityTeleport = false;
+    public static final boolean entityVelocity = false;
+    public static final boolean entityAttach = false;
+    public static final boolean entityLook = false;
+    public static final boolean setExperience = false;
+    public static final boolean destroyEntities = false;
+    public static final boolean entityMetaData = false;
+    public static final boolean entityEffect = false;
+    public static final boolean entityHeadlook = false;
+    public static final boolean entityLookMove = false;
+    public static final boolean spawnExperienceOrb = false;
 
     //s2 Particles, Game state, Global EntitiesSpawn, windows, chat
-    public static final boolean particles =         false;
-    public static final boolean changeGameState =   false;
-    public static final boolean setSlot =           false;
-    public static final boolean chunkData =         false;
-    public static final boolean entityProperties =  false;
-    public static final boolean blockAction =       false;
-    public static final boolean openWindow =        false;
-    public static final boolean closewindow =       false;
-    public static final boolean blockChange =       false;
-    public static final boolean soundEffect =       false;
+    public static final boolean particles = false;
+    public static final boolean changeGameState = false;
+    public static final boolean setSlot = false;
+    public static final boolean chunkData = false;
+    public static final boolean entityProperties = false;
+    public static final boolean blockAction = false;
+    public static final boolean openWindow = false;
+    public static final boolean closewindow = false;
+    public static final boolean blockChange = true;
+    public static final boolean multiBlockChange = true;
+    public static final boolean soundEffect = false;
 
     //s3_
-    public static final boolean confirmTransaction =    false;
-    public static final boolean statistics =            false;
-    public static final boolean playerAbilities =       false;
-    public static final boolean teams =                 false;
-    public static final boolean displayScoreboard =     false;
-    public static final boolean windowItems =           false;
-    public static final boolean maps =                  false;
-    public static final boolean signEditorOpen =        false;
-    public static final boolean scoreboardObjective =   false;
-    public static final boolean customPayload =         false;
-    public static final boolean playerListItem =        false;
-    public static final boolean updatescore =           false;
-    public static final boolean updateTileEntity =      false;
-    public static final boolean updateSign =            false;
-    public static final boolean entityStatus =          false;
+    public static final boolean confirmTransaction = false;
+    public static final boolean statistics = false;
+    public static final boolean playerAbilities = false;
+    public static final boolean teams = false;
+    public static final boolean displayScoreboard = false;
+    public static final boolean windowItems = false;
+    public static final boolean maps = false;
+    public static final boolean signEditorOpen = false;
+    public static final boolean scoreboardObjective = false;
+    public static final boolean customPayload = false;
+    public static final boolean playerListItem = false;
+    public static final boolean updatescore = false;
+    public static final boolean updateTileEntity = false;
+    public static final boolean updateSign = false;
+    public static final boolean entityStatus = false;
 
     //s4
-    public static final boolean playerListHeaderFooter =    false;
-    public static final boolean title =                     false;
-    public static final boolean camera =                    false;
+    public static final boolean playerListHeaderFooter = false;
+    public static final boolean title = false;
+    public static final boolean camera = false;
 
     private PacketSnooper() {
     }
@@ -146,6 +148,8 @@ public class PacketSnooper {
                 handleSpawnMob(o);
                 return;
             //s1_
+            case "s10packetspawnpainting":
+                return; //todo!
             case "s11packetspawnexperienceorb":
                 handleSpawnExperienceOrb(o);
                 return;
@@ -192,12 +196,21 @@ public class PacketSnooper {
             case "s21packetchunkdata":
                 handleChunkData(o);
                 return;
+            case "s22packetmultiblockchange":
+                handleMultiBlockChange(o);
+                return;
             case "s23packetblockchange":
                 handleBlockChange(o);
                 return;
             case "s24packetblockaction":
                 handleBlockAction(o);
                 return;
+            case "s25packetblockbreakanim":
+                return; //todo!
+            case "s26packetmapchunkbulk":
+                return; //todo!
+            case "s28packeteffect":
+                return; //todo!
             case "s29packetsoundeffect":
                 handleSoundEffect(o);
                 return;
@@ -585,7 +598,7 @@ public class PacketSnooper {
         }
         S20PacketEntityProperties pkt = (S20PacketEntityProperties) o;
         Entity e = SkyHelper.getEntityById(pkt.getEntityId());
-        if(e!=null) {
+        if (e != null) {
             System.out.println("S0FPacketSpawnMob: ID: " + pkt.getEntityId() + " Entity: " + e.getName() + " (" + e.toString() + ") Snapshots:");
         }
         for (S20PacketEntityProperties.Snapshot s : pkt.func_149441_d()) {
@@ -611,6 +624,23 @@ public class PacketSnooper {
         //todo better thing for blockstate later
         S23PacketBlockChange pkt = (S23PacketBlockChange) o;
         System.out.println("S23PacketBlockChange: Pos:" + SkyHelper.positionToString(pkt.getBlockPosition()) + " state: " + pkt.getBlockState().toString());
+    }
+
+    private static void handleMultiBlockChange(Object o) {
+        if (!multiBlockChange) {
+            return;
+        }
+        S22PacketMultiBlockChange pkt = (S22PacketMultiBlockChange) o;
+        System.out.println("S22PacketMultiBlockChange");
+        System.out.println("--Blocks--");
+        Arrays.stream(pkt.getChangedBlocks()).forEach((cb) -> {
+            BlockPos pos = cb.getPos();
+            String bpos = pos.getX() + "," + pos.getY() + "," + pos.getZ();
+            IBlockState blockState = cb.getBlockState();
+            blockState.getBlock().toString();
+            System.out.println(bpos + " > " + blockState.getBlock().toString() + " >>> " + blockState.toString());
+        });
+        System.out.println("--End Blocks--");
     }
 
     public static void handleBlockAction(Object o) {

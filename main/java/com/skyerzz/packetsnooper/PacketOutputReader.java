@@ -3,6 +3,9 @@ package com.skyerzz.packetsnooper;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelOutboundHandler;
 import io.netty.channel.ChannelPromise;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.play.client.C08PacketPlayerBlockPlacement;
+import net.minecraft.network.play.client.C0DPacketCloseWindow;
 
 import java.net.SocketAddress;
 
@@ -19,7 +22,7 @@ public class PacketOutputReader implements ChannelOutboundHandler {
 
     @Override
     public void connect(ChannelHandlerContext ctx, SocketAddress remoteAddress, SocketAddress localAddress, ChannelPromise promise) throws Exception {
-        //System.out.println("Connect - OUTPUT"); todo later
+        System.out.println("Connect - OUTPUT");
     }
 
     @Override
@@ -44,7 +47,15 @@ public class PacketOutputReader implements ChannelOutboundHandler {
 
     @Override
     public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
-
+        if (msg instanceof C0DPacketCloseWindow) {
+            if (true) {
+                C0DPacketCloseWindow window = (C0DPacketCloseWindow) msg;
+                System.out.println("Writing msg " + msg);
+                ctx.writeAndFlush(null, promise);
+                return;
+            }
+        }
+        ctx.writeAndFlush(msg, promise);
     }
 
     @Override

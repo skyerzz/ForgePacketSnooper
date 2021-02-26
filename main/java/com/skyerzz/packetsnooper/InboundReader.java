@@ -12,7 +12,6 @@ import java.util.List;
 public class InboundReader implements ChannelInboundHandler {
 
 
-
     @Override
     public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
 
@@ -24,7 +23,7 @@ public class InboundReader implements ChannelInboundHandler {
     }
 
     @Override
-    public void channelActive(ChannelHandlerContext c){
+    public void channelActive(ChannelHandlerContext c) {
         System.out.println("connected with packetReader - INBOUND");
         System.out.println(c.getClass());
         System.out.println(c.toString());
@@ -39,7 +38,7 @@ public class InboundReader implements ChannelInboundHandler {
     @Override
     public void channelRead(ChannelHandlerContext ctx, final Object msg) throws Exception {
         printIfRequired(msg);
-//        System.out.println("Reading channel - INBOUND: " + msg.getClass().getSimpleName());
+        //System.out.println("Reading channel - INBOUND: " + msg.getClass().getSimpleName());
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -59,7 +58,7 @@ public class InboundReader implements ChannelInboundHandler {
     );
 
     private void printIfRequired(Object msg) {
-        switch(msg.getClass().getSimpleName()){
+        switch (msg.getClass().getSimpleName()) {
             case "S00PacketKeepAlive":
             case "S03PacketTimeUpdate":
             case "S18PacketEntityTeleport":
