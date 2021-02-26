@@ -47,14 +47,6 @@ public class PacketOutputReader implements ChannelOutboundHandler {
 
     @Override
     public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
-        if (msg instanceof C0DPacketCloseWindow) {
-            if (true) {
-                C0DPacketCloseWindow window = (C0DPacketCloseWindow) msg;
-                System.out.println("Writing msg " + msg);
-                ctx.writeAndFlush(null, promise);
-                return;
-            }
-        }
         ctx.writeAndFlush(msg, promise);
     }
 
